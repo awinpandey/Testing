@@ -40,7 +40,7 @@ stages {
 	}
     stage('Send Email Notifications') {
 	    steps {
-	          mail bcc: '', body: "This is your Jenkins Build Name ${env.JOB_NAME} and Build Number is [${env.BUILD_NUMBER}] which have result ${currentBuild.currentResult}", cc: '', from: 'Jenkins Server', replyTo: '', subject: 'UMSL case Study', to: 'vikchallenge@gmail.com'
+	          mail bcc: '', body: "This is your Jenkins Build Name ${env.JOB_NAME} and Build Number is [${env.BUILD_NUMBER}] which have result ${currentBuild.currentResult}", cc: '', from: 'Jenkins Server', replyTo: '', subject: 'UMSL case Study', to: 'a.pandey998182@gmail.com'
 	    } 
      }
 }
