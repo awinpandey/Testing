@@ -26,7 +26,8 @@ stages {
 //      steps {
 //	      withSonarQubeEnv('sonarqube')
 //		{
-//		    sh "/opt/sonar_scanner/bin/sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectName=$JOB_NAME -Dsonar.projectVersion=1.0 -Dsonar.projectDescription=$JOB_NAME -Dsonar.projectKey=$JOB_NAME  -Dsonar.sources=umsl/ -Dsonar.language=java -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/umsl/" 
+//		    sh "/opt/sonar_scanner/bin/sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectName=$JOB_NAME -Dsonar.projectVersion=1.0 -Dsonar.projectDescription=$JOB_NAME -Dsonar.projectKey=$JOB_NAME  -Dsonar.sources=umsl/ -Dsonar.language=java -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/
+	/" 
 //        }    
 //          }
  //     }
@@ -34,13 +35,13 @@ stages {
     stage('Execute Java -jar file') {
            steps {
 	      sh "export jarjava=`ps -ef | grep java | grep -v grep |  grep 'java -jar' | awk '{print \$2}'` && if ! test -z \${jarjava};then kill -9 \${jarjava};fi"
-		  sh "export JENKINS_NODE_COOKIE=dontKillMe;nohup java -jar /var/lib/jenkins/workspace/umsl/target/*.jar &"
+		  sh "export JENKINS_NODE_COOKIE=dontKillMe;nohup java -jar /var/lib/jenkins/workspace/myFirstPipeline/target/*.jar &"
 
 	         }
 	}
     stage('Send Email Notification') {
 	    steps {
-	          mail bcc: '', body: "This is your Jenkins Build Name ${env.JOB_NAME} and Build Number is [${env.BUILD_NUMBER}] which have result ${currentBuild.currentResult}", cc: '', from: 'Jenkins Server', replyTo: '', subject: 'UMSL case Study', to: 'a.pandey998182@gmail.com'
+	          mail bcc: '', body: "This is your Jenkins Build Name ${env.JOB_NAME} and Build Number is [${env.BUILD_NUMBER}] which have result ${currentBuild.currentResult}", cc: '', from: 'Jenkins Server', replyTo: '', subject: 'myFirstPipeline case Study', to: 'a.pandey998182@gmail.com'
 	    } 
      }
 }
