@@ -27,7 +27,7 @@ stages {
 //	      withSonarQubeEnv('sonarqube')
 //		{
 //		    sh "/opt/sonar_scanner/bin/sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectName=$JOB_NAME -Dsonar.projectVersion=1.0 -Dsonar.projectDescription=$JOB_NAME -Dsonar.projectKey=$JOB_NAME  -Dsonar.sources=umsl/ -Dsonar.language=java -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/
-	/" 
+//	/" 
 //        }    
 //          }
  //     }
