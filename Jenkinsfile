@@ -22,16 +22,31 @@ stages {
         }
     }
 
-   stage ('Sonar Analysis') {
-      steps {
-	      withSonarQubeEnv('sonarqube')
-		{
+//   stage ('Sonar Analysis') {
+//      steps {
+//	      withSonarQubeEnv('sonarqube')
+//		{
 //		    sh "/opt/sonar_scanner/bin/sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectName=$JOB_NAME -Dsonar.projectVersion=1.0 -Dsonar.projectDescription=$JOB_NAME -Dsonar.projectKey=$JOB_NAME  -Dsonar.sources=umsl/ -Dsonar.language=java -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/"
-	sh "/opt/sonar_scanner/bin/sonar-scanner -Dsonar.host.url='http://34.221.219.252:9000' -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectName="jenkins-pipeline" -Dsonar.projectVersion=1.0 -Dsonar.projectDescription="jenkins-pipeline" -Dsonar.projectKey="6d129df9d26c61224e6caca863a7a6478c16c516" -Dsonar.sources=myFirstPipeline/ -Dsonar.language=java -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/" 
-        }    
-         }
-    }
+//	sh "/opt/sonar_scanner/bin/sonar-scanner -Dsonar.host.url='http://34.221.219.252:9000' -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectName="jenkins-pipeline" -Dsonar.projectVersion=1.0 -Dsonar.projectDescription="jenkins-pipeline" -Dsonar.projectKey="6d129df9d26c61224e6caca863a7a6478c16c516" -Dsonar.sources=myFirstPipeline/ -Dsonar.language=java -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/" 
+//        }    
+//         }
+//    }
 
+stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'SonarQubeScanner'
+    }
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
+}	
+	
+	
     stage('Execute Java -jar file') {
            steps {
 	      sh "export jarjava=`ps -ef | grep java | grep -v grep |  grep 'java -jar' | awk '{print \$2}'` && if ! test -z \${jarjava};then kill -9 \${jarjava};fi"
