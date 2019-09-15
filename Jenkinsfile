@@ -3,7 +3,7 @@ pipeline {
 
 stages {
     
-    stage('Checking Java Version') {
+    stage('Checking Java Version with sonarqube') {
         steps {
             sh "export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-12.0.1.jdk/Contents/Home && java -version"
         }
